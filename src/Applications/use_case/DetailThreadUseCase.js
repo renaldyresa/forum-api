@@ -1,3 +1,5 @@
+const { ConvertToItemReplies } = require('../../Commons/utils');
+
 class DetailThreadUseCase {
     constructor({ threadRepository, commentRepository, replyRepository }) {
         this._threadRepository = threadRepository;
@@ -13,13 +15,18 @@ class DetailThreadUseCase {
             useCasePayload.threadId,
         );
 
-        /* eslint-disable no-await-in-loop */
-        for (const comment of comments) {
-            const replies = await this._replyRepository.getRepliesByCommentId(comment.id);
-            comment.setReplies(replies);
-        }
-        /* eslint-enable no-await-in-loop */
+        const commentIds = [];
+        comments.forEach(comment => {
+            commentIds.push(comment.id);
+        });
 
+        const replies = await this._replyRepository.getRepliesByCommentId(commentIds);
+        
+        for (const comment of comments) {
+            const repliesByCommentId = replies.filter(i =>  i.comment_id === comment.id);
+            comment.setReplies(ConvertToItemReplies(repliesByCommentId));
+        }
+        
         detailThread.setComments(comments);
         return detailThread;
     }

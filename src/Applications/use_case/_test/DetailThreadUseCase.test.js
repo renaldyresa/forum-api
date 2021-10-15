@@ -53,12 +53,13 @@ describe('DetailThreadUseCase', () => {
         ];
 
         const expectedReplies = [
-            new ItemReply({
+            {
                 id: 'reply-123',
                 username: 'reply-username',
                 date: 'reply-date',
                 content: 'reply-content',
-            }),
+                comment_id: 'comment-123'
+            },
         ];
 
         const mockThreadRepository = new ThreadRepository();
@@ -87,6 +88,6 @@ describe('DetailThreadUseCase', () => {
         expect(mockThreadRepository.verifyThreadId).toBeCalledWith(threadId);
         expect(mockThreadRepository.getThreadById).toBeCalledWith(threadId);
         expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(threadId);
-        expect(mockReplyRepository.getRepliesByCommentId).toBeCalledWith('comment-123');
+        expect(mockReplyRepository.getRepliesByCommentId).toBeCalledWith(['comment-123']);
     });
 });

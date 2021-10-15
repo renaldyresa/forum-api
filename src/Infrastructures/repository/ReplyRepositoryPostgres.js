@@ -1,4 +1,3 @@
-const { ConvertToItemReplies } = require('../../Commons/utils');
 const AddedReply = require('../../Domains/replies/entities/AddedReply');
 const ReplyRepository = require('../../Domains/replies/ReplyRepository');
 const NotFoundError = require('../../Commons/exceptions/NotFoundError');
@@ -25,16 +24,17 @@ class ReplyRepositoryPostgres extends ReplyRepository {
         return new AddedReply({ ...result.rows[0] });
     }
 
-    async getRepliesByCommentId(commentId) {
+    async getRepliesByCommentId(commentIds) {
         const query = {
-            text: `SELECT replies.id, users.username, replies.date, replies.content, replies.is_delete 
+            text: `SELECT replies.* , users.username 
                     FROM replies INNER JOIN users ON replies.owner = users.id 
-                    WHERE replies.comment_id = $1`,
-            values: [commentId],
+                    WHERE replies.comment_id = ANY($1::text[])`,
+            values: [commentIds],
         };
 
         const result = await this._pool.query(query);
-        return ConvertToItemReplies(result.rows);
+        
+        return result.rows;
     }
 
     async deleteReply(replyId) {

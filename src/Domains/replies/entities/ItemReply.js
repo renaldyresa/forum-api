@@ -3,7 +3,7 @@ class ItemReply {
         this._verifyPayload(payload);
 
         const {
-            id, username, date, content,
+            id, username, date, content, comment_id
         } = payload;
         this.id = id;
         this.username = username;
