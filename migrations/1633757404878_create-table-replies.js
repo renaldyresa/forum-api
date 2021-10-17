@@ -26,7 +26,7 @@ exports.up = pgm => {
             notNull: true,
         },
         is_delete: {
-            type: 'BOOL',
+            type: 'BOOL',  
             notNull: true,
             default: false,
         },

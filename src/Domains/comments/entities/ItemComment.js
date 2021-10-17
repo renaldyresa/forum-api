@@ -9,6 +9,7 @@ class ItemComment {
         this.username = username;
         this.date = date;
         this.content = content;
+        this.likeCount = 0;
         this.replies = [];
     }
 

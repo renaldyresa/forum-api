@@ -1,10 +1,11 @@
 const { ConvertToItemReplies } = require('../../Commons/utils');
 
 class DetailThreadUseCase {
-    constructor({ threadRepository, commentRepository, replyRepository }) {
+    constructor({ threadRepository, commentRepository, replyRepository, likeRepository }) {
         this._threadRepository = threadRepository;
         this._commentRepository = commentRepository;
         this._replyRepository = replyRepository;
+        this._likeRepository = likeRepository;
     }
 
     async execute(useCasePayload) {
@@ -21,10 +22,13 @@ class DetailThreadUseCase {
         });
 
         const replies = await this._replyRepository.getRepliesByCommentId(commentIds);
+        const likes = await this._likeRepository.getLikesByCommentIds(commentIds);
         
         for (const comment of comments) {
             const repliesByCommentId = replies.filter(i =>  i.comment_id === comment.id);
             comment.setReplies(ConvertToItemReplies(repliesByCommentId));
+
+            // comment.likeCount = likes.filter(i => i.comment_id === comment.id).length;
         }
         
         detailThread.setComments(comments);
