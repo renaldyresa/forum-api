@@ -59,7 +59,7 @@ describe('DetailThreadUseCase', () => {
                 username: 'reply-username',
                 date: 'reply-date',
                 content: 'reply-content',
-                comment_id: 'comment-123'
+                comment_id: 'comment-123',
             },
         ];
 
@@ -68,7 +68,7 @@ describe('DetailThreadUseCase', () => {
                 id: 'like-123',
                 thread_id: 'thread-123',
                 comment_id: 'comment-123',
-                owner: 'user-123'
+                owner: 'user-123',
             },
         ];
 
@@ -78,7 +78,8 @@ describe('DetailThreadUseCase', () => {
         mockThreadRepository.getThreadById = jest.fn(() => Promise.resolve(expectedThread));
 
         const mockCommentRepository = new CommentRepository();
-        mockCommentRepository.getCommentsByThreadId = jest.fn(() => Promise.resolve(expectedComments));
+        mockCommentRepository
+            .getCommentsByThreadId = jest.fn(() => Promise.resolve(expectedComments));
 
         const mockReplyRepository = new ReplyRepository();
         mockReplyRepository.getRepliesByCommentId = jest.fn(() => Promise.resolve(expectedReplies));
@@ -90,7 +91,7 @@ describe('DetailThreadUseCase', () => {
             commentRepository: mockCommentRepository,
             threadRepository: mockThreadRepository,
             replyRepository: mockReplyRepository,
-            likeRepository: mockLikeRepository
+            likeRepository: mockLikeRepository,
         });
 
         // Action

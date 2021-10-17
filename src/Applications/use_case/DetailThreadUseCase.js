@@ -1,7 +1,9 @@
 const { ConvertToItemReplies } = require('../../Commons/utils');
 
 class DetailThreadUseCase {
-    constructor({ threadRepository, commentRepository, replyRepository, likeRepository }) {
+    constructor({
+        threadRepository, commentRepository, replyRepository, likeRepository,
+    }) {
         this._threadRepository = threadRepository;
         this._commentRepository = commentRepository;
         this._replyRepository = replyRepository;
@@ -17,20 +19,20 @@ class DetailThreadUseCase {
         );
 
         const commentIds = [];
-        comments.forEach(comment => {
+        comments.forEach((comment) => {
             commentIds.push(comment.id);
         });
 
         const replies = await this._replyRepository.getRepliesByCommentId(commentIds);
         const likes = await this._likeRepository.getLikesByCommentIds(commentIds);
-        
+
         for (const comment of comments) {
-            const repliesByCommentId = replies.filter(i =>  i.comment_id === comment.id);
+            const repliesByCommentId = replies.filter((i) => i.comment_id === comment.id);
             comment.setReplies(ConvertToItemReplies(repliesByCommentId));
 
-            comment.likeCount = likes.filter(i => i.comment_id === comment.id).length;
+            comment.likeCount = likes.filter((i) => i.comment_id === comment.id).length;
         }
-        
+
         detailThread.setComments(comments);
         return detailThread;
     }

@@ -19,6 +19,7 @@
     "class-methods-use-this": "off",
     "no-unused-vars": "off",
     "no-console": "off",
-    "no-restricted-syntax": "off"
+    "no-restricted-syntax": "off",
+    "camelcase": ["error", {"allow": ["comment_id", "thread_id", "is_delete"]}]
   }
 }

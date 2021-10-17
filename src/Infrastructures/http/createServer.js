@@ -26,7 +26,6 @@ const createServer = async (container) => {
         },
     ]);
 
-
     server.auth.strategy('forum_api_jwt', 'jwt', {
         keys: process.env.ACCESS_TOKEN_KEY,
         verify: {
@@ -74,7 +73,7 @@ const createServer = async (container) => {
         method: 'GET',
         path: '/',
         handler: () => ({
-          value: 'Hello world!',
+            value: 'Hello world!',
         }),
     });
 

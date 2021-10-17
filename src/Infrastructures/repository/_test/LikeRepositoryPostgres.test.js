@@ -6,7 +6,6 @@ const pool = require('../../database/postgres/pool');
 const LikeRepositoryPostgres = require('../LikeRepositoryPostgres');
 const NotFoundError = require('../../../Commons/exceptions/NotFoundError');
 
-
 describe('LikeRepositoryPostgres', () => {
     afterEach(async () => {
         await ThreadsTableTestHelper.cleanTable();
@@ -29,23 +28,22 @@ describe('LikeRepositoryPostgres', () => {
             const fakeIdGenerator = () => '123';
             const likeRepositoryPostgres = new LikeRepositoryPostgres(pool, fakeIdGenerator);
 
-            // Action 
+            // Action
             await likeRepositoryPostgres.addLike('thread-123', 'comment-123', 'user-123');
 
             // Assert
             const likes = await LikesTableTestHelper.findLikeById('like-123');
             expect(likes).toHaveLength(1);
-
         });
     });
 
     describe('removeLike function', () => {
         it('should throw error NotFoundError when use invalid like id', async () => {
-            // Arrange 
+            // Arrange
             const fakeIdGenerator = () => '123';
             const likeRepositoryPostgres = new LikeRepositoryPostgres(pool, fakeIdGenerator);
 
-            // Action and assert 
+            // Action and assert
             await expect(likeRepositoryPostgres.removeLike('xxxx'))
                 .rejects
                 .toThrowError(NotFoundError);
@@ -72,7 +70,7 @@ describe('LikeRepositoryPostgres', () => {
 
     describe('getLike function', () => {
         it('should run function correctly', async () => {
-            // Arrange 
+            // Arrange
             await UsersTableTestHelper.addUser({});
             await ThreadsTableTestHelper.addThread({});
             await CommentsTableTestHelper.addComment({});
@@ -86,12 +84,12 @@ describe('LikeRepositoryPostgres', () => {
 
             // Assert
             expect(likes).toHaveLength(1);
-        })
+        });
     });
 
     describe('getLikesByCommentIds function', () => {
         it('should run function correctly', async () => {
-            // Arrange 
+            // Arrange
             await UsersTableTestHelper.addUser({});
             await ThreadsTableTestHelper.addThread({});
             await CommentsTableTestHelper.addComment({});
@@ -105,6 +103,6 @@ describe('LikeRepositoryPostgres', () => {
 
             // Assert
             expect(likes).toHaveLength(1);
-        })
+        });
     });
-})
+});
