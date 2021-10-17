@@ -43,6 +43,8 @@ DomainErrorTranslator._directories = {
     'DELETE_REPLY_USE_CASE.NOT_MEET_DATA_TYPE_SPECIFICATION': new InvariantError('payload tidak valid karena tipe data tidak sesuai'),
     'DETAIL_THREAD_USE_CASE.NOT_CONTAIN_NEEDED_PROPERTY': new InvariantError('payload tidak valid karena properti yang dibutuhkan tidak ada'),
     'DETAIL_THREAD_USE_CASE.NOT_MEET_DATA_TYPE_SPECIFICATION': new InvariantError('payload tidak valid karena tipe data tidak sesuai'),
+    'PUT_LIKE_USE_CASE.NOT_CONTAIN_NEEDED_PROPERTY': new InvariantError('payload tidak valid karena properti yang dibutuhkan tidak ada'),
+    'PUT_LIKE_USE_CASE.NOT_MEET_DATA_TYPE_SPECIFICATION': new InvariantError('payload tidak valid karena tipe data tidak sesuai'),
 };
 
 module.exports = DomainErrorTranslator;
