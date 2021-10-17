@@ -28,7 +28,7 @@ class DetailThreadUseCase {
             const repliesByCommentId = replies.filter(i =>  i.comment_id === comment.id);
             comment.setReplies(ConvertToItemReplies(repliesByCommentId));
 
-            // comment.likeCount = likes.filter(i => i.comment_id === comment.id).length;
+            comment.likeCount = likes.filter(i => i.comment_id === comment.id).length;
         }
         
         detailThread.setComments(comments);
