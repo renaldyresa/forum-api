@@ -3,7 +3,6 @@ const ThreadRepository = require('../../../Domains/threads/ThreadRepository');
 const LikeRepository = require('../../../Domains/likes/LikeRepository');
 const LikeUseCase = require('../LikeUseCase');
 
-
 describe('LikeUseCase', () => {
     it('should orchestrating the like action correctly if add like', async () => {
         // Arrange
@@ -38,14 +37,14 @@ describe('LikeUseCase', () => {
         expect(mockThreadRepository.verifyThreadId).toBeCalledWith(useCasePayload.threadId);
         expect(mockCommentRepository.verifyCommentId).toBeCalledWith(useCasePayload.commentId);
         expect(mockLikeRepsotory.getLike).toBeCalledWith(
-            useCasePayload.threadId, 
-            useCasePayload.commentId, 
-            useCasePayload.owner
+            useCasePayload.threadId,
+            useCasePayload.commentId,
+            useCasePayload.owner,
         );
         expect(mockLikeRepsotory.addLike).toBeCalledWith(
-            useCasePayload.threadId, 
-            useCasePayload.commentId, 
-            useCasePayload.owner
+            useCasePayload.threadId,
+            useCasePayload.commentId,
+            useCasePayload.owner,
         );
-    })
-})
+    });
+});

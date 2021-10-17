@@ -1,5 +1,5 @@
 class LikeUseCase {
-    constructor({ threadRepository, commentRepository, likeRepository }){
+    constructor({ threadRepository, commentRepository, likeRepository }) {
         this._threadRepository = threadRepository;
         this._commentRepository = commentRepository;
         this._likeRepository = likeRepository;
@@ -7,11 +7,11 @@ class LikeUseCase {
 
     async execute(useCasePayload) {
         this._validateUseCasePayload(useCasePayload);
-        const { threadId, commentId, owner} = useCasePayload;
+        const { threadId, commentId, owner } = useCasePayload;
         await this._threadRepository.verifyThreadId(threadId);
         await this._commentRepository.verifyCommentId(commentId);
 
-        const likes = await this._likeRepository.getLike(threadId, commentId, owner)
+        const likes = await this._likeRepository.getLike(threadId, commentId, owner);
 
         if (!likes.length) {
             await this._likeRepository.addLike(threadId, commentId, owner);
@@ -20,7 +20,7 @@ class LikeUseCase {
         }
     }
 
-    _validateUseCasePayload(useCasePayload){
+    _validateUseCasePayload(useCasePayload) {
         const { threadId, commentId, owner } = useCasePayload;
         if (!threadId || !commentId || !owner) {
             throw new Error('PUT_LIKE_USE_CASE.NOT_CONTAIN_NEEDED_PROPERTY');

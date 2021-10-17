@@ -11,7 +11,7 @@ class LikeRepositoryPostgres extends LikeRepository {
 
     async addLike(threadId, commentId, owner) {
         const id = `like-${this._idGenerator()}`;
-        
+
         const query = {
             text: 'INSERT INTO likes VALUES($1, $2, $3, $4) RETURNING id',
             values: [id, threadId, commentId, owner],
@@ -49,12 +49,12 @@ class LikeRepositoryPostgres extends LikeRepository {
         const query = {
             text: `SELECT * FROM likes 
                     WHERE comment_id = ANY($1::text[])`,
-            values: [commentIds]
+            values: [commentIds],
         };
 
         const result = await this._pool.query(query);
         return result.rows;
     }
-} 
+}
 
 module.exports = LikeRepositoryPostgres;
